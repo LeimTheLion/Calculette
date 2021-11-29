@@ -15,7 +15,8 @@ body {
     border-radius: 6px;
     font-size: 80px;
     font-weight: 700;
-    color:rgb(36, 34, 37)
+    color:rgb(36, 34, 37);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .calc {
