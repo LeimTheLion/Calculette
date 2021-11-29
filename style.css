@@ -5,11 +5,17 @@ body {
 }
 
 .screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 500px;
     height: 150px;
     margin-bottom: 0px;
     background-color: rgb(255, 236, 250);
     border-radius: 6px;
+    font-size: 80px;
+    font-weight: 700;
+    color:rgb(36, 34, 37)
 }
 
 .calc {
@@ -30,6 +36,11 @@ button {
     border-radius: 5px;
     font-weight: 700;
     color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button:active {
+    transform: translateY(2px);
 }
 
 .number {
