@@ -13,6 +13,10 @@ let writeVirg;
 const addition = [];
 let résultAdd;
 let numCount = 0;
+let lastAddend;
+let addAll;
+let arrayAdd;
+
 
 function raiseToNine() {
     if (n == 9) {
@@ -247,6 +251,7 @@ function enterOperand2() {
 
 const plus = document.getElementById('plus');
 plus.onclick = () => {
+    giveResult()
     numCount = 0;
     pluss++;
     n = 0;
@@ -262,19 +267,21 @@ plus.onclick = () => {
 
 const result = document.getElementById('result');
 result.onclick = () => {
+    giveResult();
+    result.disabled = true;
+    plus.disabled = true;
+}
+
+function giveResult() {
     if (n !== 0 && pluss !== 0) {
-        résultAdd = (previousValue, currentValue) => previousValue + currentValue;
-        const arrayAdd = addition.reduce(résultAdd);
-        const lastAddend = Number(screen.textContent);
-        const addAll = arrayAdd + lastAddend;
+        lastAddend = Number(screen.textContent);
+        addAll = parseFloat(operand + lastAddend) //.toFixed(5); A RESOUDRE !
         screen.textContent = "";
-        screenHTML.removeChild(screen);
-        screenHTML.appendChild(screen);
         const addThis = document.createTextNode(addAll);
         screen.appendChild(addThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
-        result.disabled = true;
     }
+
 }
