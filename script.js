@@ -8,8 +8,11 @@ const ann = document.getElementById('annuler');
 ann.disabled = true;
 const eff = document.getElementById('effacer');
 let pluss = 0;
-let operand1;
+let operand;
 let writeVirg;
+const addition = [];
+let résultAdd;
+let numCount = 0;
 
 function raiseToNine() {
     if (n == 9) {
@@ -33,6 +36,7 @@ function no1() {
 const un = document.getElementById('un');
 un.onclick = () => {
     enterOperand2();
+    numCount++;
     no1();
     n++;
     raiseToNine();
@@ -46,6 +50,7 @@ function no2() {
 const deux = document.getElementById('deux');
 deux.onclick = () => {
     enterOperand2();
+    numCount++;
     no2();
     n++;
     raiseToNine();
@@ -60,6 +65,7 @@ function no3() {
 const trois = document.getElementById('trois');
 trois.onclick = () => {
     enterOperand2();
+    numCount++;
     no3();
     n++;
     raiseToNine();
@@ -73,6 +79,7 @@ function no4() {
 const quatre = document.getElementById('quatre');
 quatre.onclick = () => {
     enterOperand2();
+    numCount++;
     no4();
     n++;
     raiseToNine();
@@ -86,6 +93,7 @@ function no5() {
 const cinq = document.getElementById('cinq');
 cinq.onclick = () => {
     enterOperand2();
+    numCount++;
     no5();
     n++;
     raiseToNine();
@@ -99,6 +107,7 @@ function no6() {
 const six = document.getElementById('six');
 six.onclick = () => {
     enterOperand2();
+    numCount++;
     no6();
     n++;
     raiseToNine();
@@ -112,6 +121,7 @@ function no7() {
 const sept = document.getElementById('sept');
 sept.onclick = () => {
     enterOperand2();
+    numCount++;
     no7();
     n++;
     raiseToNine();
@@ -125,6 +135,7 @@ function no8() {
 const huit = document.getElementById('huit');
 huit.onclick = () => {
     enterOperand2();
+    numCount++;
     no8();
     n++;
     raiseToNine();
@@ -138,6 +149,7 @@ function no9() {
 const neuf = document.getElementById('neuf');
 neuf.onclick = () => {
     enterOperand2();
+    numCount++;
     no9();
     n++;
     raiseToNine();
@@ -151,6 +163,7 @@ function no0() {
 const zéro = document.getElementById('zéro');
 zéro.onclick = () => {
     enterOperand2();
+    numCount++;
     no0();
     n++;
     raiseToNine();
@@ -158,8 +171,9 @@ zéro.onclick = () => {
 };
 
 function virg() {
-    if (n == 0) { // NON FUNZIONA PERCHE' APPENA PREMI ",", DIVENTA 1 !!!!!!!!!
+    if (n == 0) {
         writeVirg = document.createTextNode("0.");
+        n++;
         screen.appendChild(writeVirg);
     }
     else if (n !== 0) {
@@ -167,11 +181,13 @@ function virg() {
         screen.appendChild(writeVirg);
     }
 }
+
 const virgule = document.getElementById('virg');
 virgule.onclick = () => {
     enterOperand2();
-    n++;
+    numCount++;
     virg();
+    n++;
     virgNum++;
     max1Virg();
     activateAnn();
@@ -182,7 +198,8 @@ eff.onclick = () => {
     n = 0;
     virgNum = 0;
     pluss = 0;
-    operand1 = "";
+    operand = "";
+    addition.length = 0;
     allNumbers.forEach(number => number.disabled = false);
     virgule.disabled = false;
     plus.disabled = false;
@@ -209,30 +226,35 @@ ann.onclick = () => {
 }
 
 function enterOperand2() {
-    if (pluss !== 0) {
-        screenHTML.removeChild(screen);
-        pluss = 0;
-        screenHTML.appendChild(screen);
+    if (pluss !== 0 && numCount == 0) {
         screen.textContent = "";
-        n = 0;
         virgNum = 0;
         allNumbers.forEach(number => number.disabled = false);
         virgule.disabled = false;
         raiseToNine();
         activateAnn();
         max1Virg();
-
+    }
+    else if (pluss !== 0 && numCount !== 0) {
+        virgNum = 0;
+        allNumbers.forEach(number => number.disabled = false);
+        virgule.disabled = false;
+        raiseToNine();
+        activateAnn();
+        max1Virg();
     }
 }
 
 const plus = document.getElementById('plus');
 plus.onclick = () => {
+    numCount = 0;
     pluss++;
-    operand1 = Number(screen.textContent);
     n = 0;
     virgNum = 0;
     allNumbers.forEach(number => number.disabled = false);
     virgule.disabled = false;
+    operand = Number(screen.textContent);
+    addition.push(operand);
     raiseToNine();
     activateAnn();
     max1Virg();
@@ -240,13 +262,16 @@ plus.onclick = () => {
 
 const result = document.getElementById('result');
 result.onclick = () => {
-    if (n !== 0) {
-        let résultat = operand1 + Number(screen.textContent);
+    if (n !== 0 && pluss !== 0) {
+        résultAdd = (previousValue, currentValue) => previousValue + currentValue;
+        const arrayAdd = addition.reduce(résultAdd);
+        const lastAddend = Number(screen.textContent);
+        const addAll = arrayAdd + lastAddend;
+        screen.textContent = "";
         screenHTML.removeChild(screen);
         screenHTML.appendChild(screen);
-        screen.textContent = "";
-        const writeResult = document.createTextNode(résultat);
-        screen.appendChild(writeResult);
+        const addThis = document.createTextNode(addAll);
+        screen.appendChild(addThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
