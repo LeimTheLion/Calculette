@@ -8,12 +8,16 @@ const ann = document.getElementById('annuler');
 ann.disabled = true;
 const eff = document.getElementById('effacer');
 let pluss = 0;
+let moinss = 0;
+let multt = 0;
+let divv = 0;
 let operand;
 let writeVirg;
 const addition = [];
+const soustraction = [];
 let résultAdd;
 let numCount = 0;
-let lastAddend;
+let lastOpe;
 let addAll;
 let arrayAdd;
 
@@ -202,11 +206,14 @@ eff.onclick = () => {
     n = 0;
     virgNum = 0;
     pluss = 0;
+    moinss = 0;
     operand = "";
     addition.length = 0;
+    soustraction.length = 0;
     allNumbers.forEach(number => number.disabled = false);
     virgule.disabled = false;
     plus.disabled = false;
+    moins.disabled = false;
     result.disabled = false;
 }
 
@@ -230,7 +237,7 @@ ann.onclick = () => {
 }
 
 function enterOperand2() {
-    if (pluss !== 0 && numCount == 0) {
+    if (pluss !== 0 && numCount == 0 || moinss !== 0 && numCount == 0) {
         screen.textContent = "";
         virgNum = 0;
         allNumbers.forEach(number => number.disabled = false);
@@ -239,7 +246,7 @@ function enterOperand2() {
         activateAnn();
         max1Virg();
     }
-    else if (pluss !== 0 && numCount !== 0) {
+    else if (pluss !== 0 && numCount !== 0 || moinss !== 0 && numCount == 0) {
         virgNum = 0;
         allNumbers.forEach(number => number.disabled = false);
         virgule.disabled = false;
@@ -254,6 +261,7 @@ plus.onclick = () => {
     giveResult()
     numCount = 0;
     pluss++;
+    moinss = 0;
     n = 0;
     virgNum = 0;
     allNumbers.forEach(number => number.disabled = false);
@@ -265,20 +273,48 @@ plus.onclick = () => {
     max1Virg();
 }
 
+const moins = document.getElementById('moins');
+moins.onclick = () => {
+    giveResult()
+    numCount = 0;
+    moinss++;
+    pluss = 0;
+    n = 0;
+    virgNum = 0;
+    allNumbers.forEach(number => number.disabled = false);
+    virgule.disabled = false;
+    operand = Number(screen.textContent);
+    soustraction.push(operand);
+    raiseToNine();
+    activateAnn();
+    max1Virg();
+}
+
 const result = document.getElementById('result');
 result.onclick = () => {
     giveResult();
     result.disabled = true;
     plus.disabled = true;
+    moins.disabled = true;
 }
 
 function giveResult() {
     if (n !== 0 && pluss !== 0) {
-        lastAddend = Number(screen.textContent);
-        addAll = parseFloat(operand + lastAddend) //.toFixed(5); A RESOUDRE !
+        lastOpe = Number(screen.textContent);
+        addAll = parseFloat(operand + lastOpe) //.toFixed(5); A RESOUDRE !
         screen.textContent = "";
         const addThis = document.createTextNode(addAll);
         screen.appendChild(addThis);
+        allNumbers.forEach(number => number.disabled = true);
+        ann.disabled = true;
+        virgule.disabled = true;
+    }
+    else if (n !== 0 && moinss !== 0) {
+        lastOpe = Number(screen.textContent);
+        sousAll = parseFloat(operand - lastOpe) //.toFixed(5); A RESOUDRE !
+        screen.textContent = "";
+        const sousThis = document.createTextNode(sousAll);
+        screen.appendChild(sousThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
