@@ -15,6 +15,8 @@ let operand;
 let writeVirg;
 const addition = [];
 const soustraction = [];
+const multiplication = [];
+const division = [];
 let résultAdd;
 let numCount = 0;
 let lastOpe;
@@ -207,6 +209,8 @@ eff.onclick = () => {
     virgNum = 0;
     pluss = 0;
     moinss = 0;
+    multt = 0;
+    divv = 0;
     operand = "";
     addition.length = 0;
     soustraction.length = 0;
@@ -214,6 +218,8 @@ eff.onclick = () => {
     virgule.disabled = false;
     plus.disabled = false;
     moins.disabled = false;
+    croix.disabled = false;
+    divi.disabled = false;
     result.disabled = false;
 }
 
@@ -237,7 +243,7 @@ ann.onclick = () => {
 }
 
 function enterOperand2() {
-    if (pluss !== 0 && numCount == 0 || moinss !== 0 && numCount == 0) {
+    if (numCount == 0) {
         screen.textContent = "";
         virgNum = 0;
         allNumbers.forEach(number => number.disabled = false);
@@ -246,14 +252,14 @@ function enterOperand2() {
         activateAnn();
         max1Virg();
     }
-    else if (pluss !== 0 && numCount !== 0 || moinss !== 0 && numCount == 0) {
+    else
         virgNum = 0;
-        allNumbers.forEach(number => number.disabled = false);
-        virgule.disabled = false;
-        raiseToNine();
-        activateAnn();
-        max1Virg();
-    }
+    allNumbers.forEach(number => number.disabled = false);
+    virgule.disabled = false;
+    raiseToNine();
+    activateAnn();
+    max1Virg();
+
 }
 
 const plus = document.getElementById('plus');
@@ -262,6 +268,8 @@ plus.onclick = () => {
     numCount = 0;
     pluss++;
     moinss = 0;
+    multt = 0;
+    divv = 0;
     n = 0;
     virgNum = 0;
     allNumbers.forEach(number => number.disabled = false);
@@ -279,6 +287,8 @@ moins.onclick = () => {
     numCount = 0;
     moinss++;
     pluss = 0;
+    multt = 0;
+    divv = 0;
     n = 0;
     virgNum = 0;
     allNumbers.forEach(number => number.disabled = false);
@@ -290,16 +300,57 @@ moins.onclick = () => {
     max1Virg();
 }
 
+const croix = document.getElementById('croix');
+croix.onclick = () => {
+    giveResult()
+    numCount = 0;
+    multt++;
+    pluss = 0;
+    moinss = 0;
+    divv = 0;
+    n = 0;
+    virgNum = 0;
+    allNumbers.forEach(number => number.disabled = false);
+    virgule.disabled = false;
+    operand = Number(screen.textContent);
+    multiplication.push(operand);
+    raiseToNine();
+    activateAnn();
+    max1Virg();
+}
+
+const divi = document.getElementById('divi');
+divi.onclick = () => {
+    giveResult()
+    numCount = 0;
+    divv++;
+    pluss = 0;
+    moinss = 0;
+    multt = 0;
+    n = 0;
+    virgNum = 0;
+    allNumbers.forEach(number => number.disabled = false);
+    virgule.disabled = false;
+    operand = Number(screen.textContent);
+    division.push(operand);
+    raiseToNine();
+    activateAnn();
+    max1Virg();
+}
+
 const result = document.getElementById('result');
 result.onclick = () => {
     giveResult();
     result.disabled = true;
     plus.disabled = true;
     moins.disabled = true;
+    croix.disabled = true;
+    divi.disabled = true;
+    easterEgg();
 }
 
 function giveResult() {
-    if (n !== 0 && pluss !== 0) {
+    if (pluss !== 0) {
         lastOpe = Number(screen.textContent);
         addAll = parseFloat(operand + lastOpe) //.toFixed(5); A RESOUDRE !
         screen.textContent = "";
@@ -309,7 +360,7 @@ function giveResult() {
         ann.disabled = true;
         virgule.disabled = true;
     }
-    else if (n !== 0 && moinss !== 0) {
+    else if (moinss !== 0) {
         lastOpe = Number(screen.textContent);
         sousAll = parseFloat(operand - lastOpe) //.toFixed(5); A RESOUDRE !
         screen.textContent = "";
@@ -319,5 +370,37 @@ function giveResult() {
         ann.disabled = true;
         virgule.disabled = true;
     }
-
+    else if (multt !== 0) {
+        lastOpe = Number(screen.textContent);
+        multAll = parseFloat(operand * lastOpe) //.toFixed(5); A RESOUDRE !
+        screen.textContent = "";
+        const mulThis = document.createTextNode(multAll);
+        screen.appendChild(mulThis);
+        allNumbers.forEach(number => number.disabled = true);
+        ann.disabled = true;
+        virgule.disabled = true;
+    }
+    else if (divv !== 0) {
+        lastOpe = Number(screen.textContent);
+        divisAll = parseFloat(operand / lastOpe) //.toFixed(5); A RESOUDRE !
+        screen.textContent = "";
+        const diviThis = document.createTextNode(divisAll);
+        screen.appendChild(diviThis);
+        allNumbers.forEach(number => number.disabled = true);
+        ann.disabled = true;
+        virgule.disabled = true;
+    }
+}
+function easterEgg() {
+    let bofEaster = document.createElement('p');
+    bofEaster.textContent = "Infinity";
+    bofEaster.classList.add('egg');
+    bofEaster.setAttribute('href', "https://www.youtube.com/watch?v=GImvJWEehkA");
+    bofEaster.style.color = "darkred";
+    bofEaster.style.textDecoration = "underline";
+    bofEaster.onclick = () => { window.open("https://www.youtube.com/watch?v=GImvJWEehkA", '_blank') };
+    if (divisAll == Infinity) {
+        screen.textContent = "";
+        screen.appendChild(bofEaster);
+    }
 }

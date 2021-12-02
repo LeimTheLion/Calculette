@@ -76,3 +76,7 @@ button:active {
 #plusmoins:hover, #perc:hover, #virg:hover {
     background-color: rgb(144, 179, 182);
 }
+
+.egg {
+    cursor: pointer;
+}
