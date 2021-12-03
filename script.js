@@ -21,7 +21,9 @@ let résultAdd;
 let numCount = 0;
 let lastOpe;
 let addAll;
+let divisAll;
 let arrayAdd;
+let easter = 0;
 
 
 function raiseToNine() {
@@ -211,9 +213,13 @@ eff.onclick = () => {
     moinss = 0;
     multt = 0;
     divv = 0;
+    easter = 0;
+    console.log(easter);
     operand = "";
     addition.length = 0;
     soustraction.length = 0;
+    multiplication.length = 0;
+    division.length = 0;
     allNumbers.forEach(number => number.disabled = false);
     virgule.disabled = false;
     plus.disabled = false;
@@ -379,6 +385,9 @@ function giveResult() {
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
+        console.log(operand);
+        console.log(lastOpe);
+        console.log(multAll);
     }
     else if (divv !== 0) {
         lastOpe = Number(screen.textContent);
@@ -389,17 +398,20 @@ function giveResult() {
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
+        if (divisAll == Infinity) {
+            easter++;
+        }
     }
 }
 function easterEgg() {
-    let bofEaster = document.createElement('p');
-    bofEaster.textContent = "Infinity";
-    bofEaster.classList.add('egg');
-    bofEaster.setAttribute('href', "https://www.youtube.com/watch?v=GImvJWEehkA");
-    bofEaster.style.color = "darkred";
-    bofEaster.style.textDecoration = "underline";
-    bofEaster.onclick = () => { window.open("https://www.youtube.com/watch?v=GImvJWEehkA", '_blank') };
-    if (divisAll == Infinity) {
+    if (easter !== 0) {
+        let bofEaster = document.createElement('p');
+        bofEaster.textContent = "Infinity";
+        bofEaster.classList.add('egg');
+        bofEaster.setAttribute('href', "https://www.youtube.com/watch?v=GImvJWEehkA");
+        bofEaster.style.color = "darkred";
+        bofEaster.style.textDecoration = "underline";
+        bofEaster.onclick = () => { window.open("https://www.youtube.com/watch?v=GImvJWEehkA", '_blank') };
         screen.textContent = "";
         screen.appendChild(bofEaster);
     }
