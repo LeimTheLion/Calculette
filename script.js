@@ -11,6 +11,7 @@ let pluss = 0;
 let moinss = 0;
 let multt = 0;
 let divv = 0;
+let ress = 0;
 let operand;
 let writeVirg;
 const addition = [];
@@ -27,7 +28,7 @@ let easter = 0;
 
 
 function raiseToNine() {
-    if (n == 9) {
+    if (n == 8) {
         allNumbers.forEach(number => number.disabled = true);
         virgule.disabled = true;
     }
@@ -214,7 +215,6 @@ eff.onclick = () => {
     multt = 0;
     divv = 0;
     easter = 0;
-    console.log(easter);
     operand = "";
     addition.length = 0;
     soustraction.length = 0;
@@ -265,12 +265,12 @@ function enterOperand2() {
     raiseToNine();
     activateAnn();
     max1Virg();
-
 }
 
 const plus = document.getElementById('plus');
 plus.onclick = () => {
-    giveResult()
+    giveResult();
+    continueAfterRes();
     numCount = 0;
     pluss++;
     moinss = 0;
@@ -289,7 +289,8 @@ plus.onclick = () => {
 
 const moins = document.getElementById('moins');
 moins.onclick = () => {
-    giveResult()
+    giveResult();
+    continueAfterRes();
     numCount = 0;
     moinss++;
     pluss = 0;
@@ -308,7 +309,8 @@ moins.onclick = () => {
 
 const croix = document.getElementById('croix');
 croix.onclick = () => {
-    giveResult()
+    giveResult();
+    continueAfterRes();
     numCount = 0;
     multt++;
     pluss = 0;
@@ -327,7 +329,8 @@ croix.onclick = () => {
 
 const divi = document.getElementById('divi');
 divi.onclick = () => {
-    giveResult()
+    giveResult();
+    continueAfterRes();
     numCount = 0;
     divv++;
     pluss = 0;
@@ -346,13 +349,11 @@ divi.onclick = () => {
 
 const result = document.getElementById('result');
 result.onclick = () => {
+    ress++;
     giveResult();
-    result.disabled = true;
-    plus.disabled = true;
-    moins.disabled = true;
-    croix.disabled = true;
-    divi.disabled = true;
     easterEgg();
+    continueAfterRes();
+    result.disabled = true;
 }
 
 function giveResult() {
@@ -385,9 +386,6 @@ function giveResult() {
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
-        console.log(operand);
-        console.log(lastOpe);
-        console.log(multAll);
     }
     else if (divv !== 0) {
         lastOpe = Number(screen.textContent);
@@ -415,4 +413,36 @@ function easterEgg() {
         screen.textContent = "";
         screen.appendChild(bofEaster);
     }
+}
+
+function continueAfterRes() {
+    if (ress !== 0) {
+        n = 0;
+        virgNum = 0;
+        pluss = 0;
+        moinss = 0;
+        multt = 0;
+        divv = 0;
+        easter = 0;
+        addition.length = 0;
+        soustraction.length = 0;
+        multiplication.length = 0;
+        division.length = 0;
+        allNumbers.forEach(number => number.disabled = false);
+        virgule.disabled = false;
+        plus.disabled = false;
+        moins.disabled = false;
+        croix.disabled = false;
+        divi.disabled = false;
+        result.disabled = false;
+    }
+}
+
+let plusmoins = document.getElementById('plusmoins');
+plusmoins.onclick = () => {
+    let négatif = Number(screen.textContent) * -1;
+    screen.textContent = "";
+    let nég2 = document.createElement('p');
+    nég2.textContent = négatif;
+    screen.appendChild(nég2);
 }
