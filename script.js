@@ -359,7 +359,7 @@ result.onclick = () => {
 function giveResult() {
     if (pluss !== 0) {
         lastOpe = Number(screen.textContent);
-        addAll = parseFloat(operand + lastOpe) //.toFixed(5); A RESOUDRE !
+        addAll = parseFloat((operand + lastOpe).toFixed(5));
         screen.textContent = "";
         const addThis = document.createTextNode(addAll);
         screen.appendChild(addThis);
@@ -369,7 +369,7 @@ function giveResult() {
     }
     else if (moinss !== 0) {
         lastOpe = Number(screen.textContent);
-        sousAll = parseFloat(operand - lastOpe) //.toFixed(5); A RESOUDRE !
+        sousAll = parseFloat((operand - lastOpe).toFixed(5));
         screen.textContent = "";
         const sousThis = document.createTextNode(sousAll);
         screen.appendChild(sousThis);
@@ -379,7 +379,7 @@ function giveResult() {
     }
     else if (multt !== 0) {
         lastOpe = Number(screen.textContent);
-        multAll = parseFloat(operand * lastOpe) //.toFixed(5); A RESOUDRE !
+        multAll = parseFloat((operand * lastOpe).toFixed(5));
         screen.textContent = "";
         const mulThis = document.createTextNode(multAll);
         screen.appendChild(mulThis);
@@ -389,7 +389,7 @@ function giveResult() {
     }
     else if (divv !== 0) {
         lastOpe = Number(screen.textContent);
-        divisAll = parseFloat(operand / lastOpe) //.toFixed(5); A RESOUDRE !
+        divisAll = parseFloat((operand / lastOpe).toFixed(5));
         screen.textContent = "";
         const diviThis = document.createTextNode(divisAll);
         screen.appendChild(diviThis);
@@ -446,3 +446,9 @@ plusmoins.onclick = () => {
     nég2.textContent = négatif;
     screen.appendChild(nég2);
 }
+
+//MAINTENANT, IL NE MANQUE QUE :
+// - TOUCHE du (DU !!!!!!!) POURCENTAGE ;
+// - CONTROLE PAR LE CLAVIER ;
+// - METTRE e^ SI LES NOMBRES DEVIENNENT TROP LONGS ;
+// - CHANGER LA FONTE.
