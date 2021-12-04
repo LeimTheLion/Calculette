@@ -184,10 +184,19 @@ zéro.onclick = () => {
 };
 
 function virg() {
-    if (n == 0) {
+    if (n == 0 && screen.textContent == "") {
         writeVirg = document.createTextNode("0.");
         n++;
         screen.appendChild(writeVirg);
+    }
+    else if (n == 0 && screen.textContent !== "") {
+        if (screen.textContent.search(".") == -1) {
+            virgule.disabled = true;
+        }
+        else if (screen.textContent.search(".") == -1) {
+            writeVirg = document.createTextNode(".");
+            screen.appendChild(writeVirg);
+        }
     }
     else if (n !== 0) {
         writeVirg = document.createTextNode(".");
@@ -235,17 +244,18 @@ ann.onclick = () => {
         n--;
         allNumbers.forEach(number => number.disabled = false);
     }
-    function checkVirg() {
-        if (screen.textContent.search(".") !== -1) {
-            virgule.disabled = true;
-        }
-        else if (screen.textContent.search(".") == -1) {
-            virgNum = 0;
-            virgule.disabled = false;
-            max1Virg();
-        }
-    }
     checkVirg();
+}
+
+function checkVirg() {
+    if (screen.textContent.search(".") !== -1) {
+        virgule.disabled = true;
+    }
+    else if (screen.textContent.search(".") == -1) {
+        virgNum = 0;
+        virgule.disabled = false;
+        max1Virg();
+    }
 }
 
 function enterOperand2() {
@@ -447,8 +457,17 @@ plusmoins.onclick = () => {
     screen.appendChild(nég2);
 }
 
+let pourc = document.getElementById('pourc');
+pourc.onclick = () => {
+    let pourcentage = Number(screen.textContent) / 100;
+    screen.textContent = "";
+    let pourc2 = document.createElement('p');
+    pourc2.textContent = pourcentage;
+    screen.appendChild(pourc2); 
+}
+
 //MAINTENANT, IL NE MANQUE QUE :
-// - TOUCHE du (DU !!!!!!!) POURCENTAGE ;
+
 // - CONTROLE PAR LE CLAVIER ;
 // - METTRE e^ SI LES NOMBRES DEVIENNENT TROP LONGS ;
 // - CHANGER LA FONTE.
