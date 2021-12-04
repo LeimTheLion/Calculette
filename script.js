@@ -369,40 +369,116 @@ result.onclick = () => {
 function giveResult() {
     if (pluss !== 0) {
         lastOpe = Number(screen.textContent);
-        addAll = parseFloat((operand + lastOpe).toFixed(5));
+        addAll = parseFloat((operand + lastOpe).toFixed(3));
         screen.textContent = "";
         const addThis = document.createTextNode(addAll);
-        screen.appendChild(addThis);
+        if (addThis.length > 8) {
+            errorMsg = document.createElement('p');
+            errorMsg.textContent = "ERREUR";
+            screen.appendChild(errorMsg);
+            alert("Le nombre était trop long !");
+            allNumbers.forEach(number => number.disabled = true);
+            pluss = 0;
+            ress = 0;
+            ann.disabled = true;
+            virgule.disabled = true;
+            plusmoins.disabled = true;
+            pourc.disabled = true;
+            result.disabled = true;
+            plus.disabled = true;
+            moins.disabled = true;
+            croix.disabled = true;
+            divi.disabled = true;
+        }
+        else
+            screen.appendChild(addThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
     }
     else if (moinss !== 0) {
         lastOpe = Number(screen.textContent);
-        sousAll = parseFloat((operand - lastOpe).toFixed(5));
+        sousAll = parseFloat((operand - lastOpe).toFixed(3));
         screen.textContent = "";
         const sousThis = document.createTextNode(sousAll);
-        screen.appendChild(sousThis);
+        if (sousThis.length > 8) {
+            errorMsg = document.createElement('p');
+            errorMsg.textContent = "ERREUR";
+            screen.appendChild(errorMsg);
+            alert("Le nombre était trop long !");
+            allNumbers.forEach(number => number.disabled = true);
+            moinss = 0;
+            ress = 0;
+            ann.disabled = true;
+            virgule.disabled = true;
+            plusmoins.disabled = true;
+            pourc.disabled = true;
+            result.disabled = true;
+            plus.disabled = true;
+            moins.disabled = true;
+            croix.disabled = true;
+            divi.disabled = true;
+        }
+        else
+            screen.appendChild(sousThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
     }
     else if (multt !== 0) {
         lastOpe = Number(screen.textContent);
-        multAll = parseFloat((operand * lastOpe).toFixed(5));
+        multAll = parseFloat((operand * lastOpe).toFixed(3));
         screen.textContent = "";
         const mulThis = document.createTextNode(multAll);
-        screen.appendChild(mulThis);
+        if (mulThis.length > 8) {
+            errorMsg = document.createElement('p');
+            errorMsg.textContent = "ERREUR";
+            screen.appendChild(errorMsg);
+            alert("Le nombre était trop long !");
+            allNumbers.forEach(number => number.disabled = true);
+            multt = 0;
+            ress = 0;
+            ann.disabled = true;
+            virgule.disabled = true;
+            plusmoins.disabled = true;
+            pourc.disabled = true;
+            result.disabled = true;
+            plus.disabled = true;
+            moins.disabled = true;
+            croix.disabled = true;
+            divi.disabled = true;
+        }
+        else
+            screen.appendChild(mulThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
     }
     else if (divv !== 0) {
         lastOpe = Number(screen.textContent);
-        divisAll = parseFloat((operand / lastOpe).toFixed(5));
+        divisAll = parseFloat((operand / lastOpe).toFixed(3));
         screen.textContent = "";
         const diviThis = document.createTextNode(divisAll);
-        screen.appendChild(diviThis);
+        if (diviThis.length > 8) {
+            errorMsg = document.createElement('p');
+            errorMsg.textContent = "ERREUR";
+            screen.appendChild(errorMsg);
+            alert("Le nombre était trop long !");
+            allNumbers.forEach(number => number.disabled = true);
+            divv = 0;
+            ress = 0;
+            ann.disabled = true;
+            virgule.disabled = true;
+            plusmoins.disabled = true;
+            pourc.disabled = true;
+            result.disabled = true;
+            plus.disabled = true;
+            moins.disabled = true;
+            croix.disabled = true;
+            divi.disabled = true;
+        }
+        else
+            screen.appendChild(diviThis);
         allNumbers.forEach(number => number.disabled = true);
         ann.disabled = true;
         virgule.disabled = true;
@@ -463,11 +539,12 @@ pourc.onclick = () => {
     screen.textContent = "";
     let pourc2 = document.createElement('p');
     pourc2.textContent = pourcentage;
-    screen.appendChild(pourc2); 
+    screen.appendChild(pourc2);
 }
 
 //MAINTENANT, IL NE MANQUE QUE :
 
 // - CONTROLE PAR LE CLAVIER ;
-// - METTRE e^ SI LES NOMBRES DEVIENNENT TROP LONGS ;
+// - CONTROLE CE QUI SE PASSE SI ON APPUIE SUR UNE OPERATION APRES AVOIR APPUYE UNE AUTRE OPERATION;
 // - CHANGER LA FONTE.
+// - SI IL N'Y A PAS DE NOMBRES SUR L'ECRAN, ZERO DEVIENT ZERO VIRGULE.
