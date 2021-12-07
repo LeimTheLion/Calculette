@@ -205,6 +205,8 @@ eff.onclick = () => {
         division.length = 0;
         allNumbers.forEach(number => number.disabled = false);
         virgule.disabled = false;
+        pourc.disabled = false;
+        plusmoins.disabled = false;
     }
 }
 const ann = document.getElementById('annuler');
@@ -306,14 +308,12 @@ function continueAfterRes() {
 let plusmoins = document.getElementById('plusmoins');
 plusmoins.onclick = () => {
     let négatif = Number(screen.textContent) * -1;
-    screen.textContent = "";
     screen.textContent = négatif;
     checkVirg();
 }
 let pourc = document.getElementById('pourc');
 pourc.onclick = () => {
     let pourcentage = Number(screen.textContent) / 100;
-    screen.textContent = "";
     screen.textContent = pourcentage;
     checkVirg();
 }
@@ -490,20 +490,16 @@ document.addEventListener('keydown', (event) => {
     else if (clavier === 'Enter' || clavier === '=') {
         result.onclick();
     }
-    else if (screen.textContent.search(/[.]/) == -1) {
-        if (clavier === '.' || clavier === ',') {
-            checkVirg();
-            virgule.onclick();
-        }
-    }
     else if (clavier === '_') {
         plusmoins.onclick();
     }
     else if (clavier === '%') {
         pourc.onclick();
     }
+    else if (screen.textContent.search(/[.]/) == -1) {
+        if (clavier === '.' || clavier === ',') {
+            checkVirg();
+            virgule.onclick();
+        }
+    }
 })
-
-//MAINTENANT, IL NE MANQUE QUE :
-
-// - CHANGER LA FONTE.
