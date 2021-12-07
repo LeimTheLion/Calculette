@@ -3,16 +3,12 @@ const screenHTML = document.querySelector('.screen');
 const screen = document.createElement('p');
 screenHTML.appendChild(screen);
 screen.classList.add("inScreen");
-
 // NOMBRES //
 let n = 0;
 const allNumbers = document.querySelectorAll('.number');
-
 // VIRGULE //
 let writeVirg;
-
 // OPERATIONS //
-const allOpe = document.querySelectorAll('.ope');
 let pluss = 0;
 let moinss = 0;
 let multt = 0;
@@ -31,9 +27,12 @@ let sousAll;
 let multAll;
 let divisAll;
 let arrayAdd;
-
-// EASTER EGG //
+// BONUS //
 let easter = 0;
+let error = 0;
+// CLAVIER //
+let clavier;
+
 
 // INSERER LES NOMBRES //
 function no1() {
@@ -189,8 +188,7 @@ virgule.onclick = () => {
 // EFFACER ET ANNULER //
 const eff = document.getElementById('effacer');
 eff.onclick = () => {
-    if (easter !== 0) {
-        console.log(easter);
+    if (easter !== 0 || error !== 0) {
         window.location.reload();
     }
     else if (easter == 0) {
@@ -214,7 +212,6 @@ ann.onclick = () => {
     screen.textContent = screen.textContent.substring(0, screen.textContent.length - 1);
     checkVirg();
     allNumbers.forEach(number => number.disabled = false);
-    virgule.disabled = false;
 }
 
 // OPERATIONS //
@@ -239,6 +236,7 @@ plus.onclick = () => {
     virgule.disabled = false;
     operand = Number(screen.textContent);
     addition.push(operand);
+    erreur();
 }
 const moins = document.getElementById('moins');
 moins.onclick = () => {
@@ -255,6 +253,7 @@ moins.onclick = () => {
     virgule.disabled = false;
     operand = Number(screen.textContent);
     soustraction.push(operand);
+    erreur();
 }
 const croix = document.getElementById('croix');
 croix.onclick = () => {
@@ -271,6 +270,7 @@ croix.onclick = () => {
     virgule.disabled = false;
     operand = Number(screen.textContent);
     multiplication.push(operand);
+    erreur();
 }
 const divi = document.getElementById('divi');
 divi.onclick = () => {
@@ -287,6 +287,7 @@ divi.onclick = () => {
     virgule.disabled = false;
     operand = Number(screen.textContent);
     division.push(operand);
+    erreur();
 }
 function continueAfterRes() {
     if (ress !== 0) {
@@ -334,7 +335,7 @@ function giveResult() {
             easter++;
             easterEgg();
         }
-        else if (addAll !== Infinity) {
+        else if (addAll !== Infinity && addAll !== NaN) {
             screen.textContent = "";
             const addThis = document.createTextNode(addAll);
             checkVirg();
@@ -414,10 +415,95 @@ function easterEgg() {
     }
 }
 
+function erreur() {
+    if (addition.includes(NaN) == true || soustraction.includes(NaN) == true || multiplication.includes(NaN) == true || division.includes(NaN) == true) {
+        error++;
+        screen.textContent = "0";
+        const erreur = document.createTextNode('p');
+        erreur.textContent = "ERREUR";
+        screenHTML.removeChild(screen);
+        screenHTML.appendChild(erreur);
+        allNumbers.forEach(number => number.disabled = true);
+        virgule.disabled = true;
+        plus.disabled = true;
+        moins.disabled = true;
+        croix.disabled = true;
+        divi.disabled = true;
+        result.disabled = true;
+        pourc.disabled = true;
+        ann.disabled = true;
+        plusmoins.disabled = true;
+    }
+}
 
+// CLAVIER //
+document.addEventListener('keydown', (event) => {
+    clavier = event.key;
+    if (clavier === '1' || clavier === 'numpad 1') {
+        un.onclick();
+    }
+    else if (clavier === '2' || clavier === 'numpad 2') {
+        deux.onclick();
+    }
+    else if (clavier === '3' || clavier === 'numpad 3') {
+        trois.onclick();
+    }
+    else if (clavier === '4' || clavier === 'numpad 4') {
+        quatre.onclick();
+    }
+    else if (clavier === '5' || clavier === 'numpad 5') {
+        cinq.onclick();
+    }
+    else if (clavier === '6' || clavier === 'numpad 6') {
+        six.onclick();
+    }
+    else if (clavier === '7' || clavier === 'numpad 7') {
+        sept.onclick();
+    }
+    else if (clavier === '8' || clavier === 'numpad 8') {
+        huit.onclick();
+    }
+    else if (clavier === '9' || clavier === 'numpad 9') {
+        neuf.onclick();
+    }
+    else if (clavier === '0' || clavier === 'numpad 0') {
+        zéro.onclick();
+    }
+    else if (clavier === '+' || clavier === 'numpad +') {
+        plus.onclick();
+    }
+    else if (clavier === '-' || clavier === 'numpad -') {
+        moins.onclick();
+    }
+    else if (clavier === '*') {
+        croix.onclick();
+    }
+    else if (clavier === '/' || clavier === ':') {
+        divi.onclick();
+    }
+    else if (clavier === 'Backspace') {
+        ann.onclick();
+    }
+    else if (clavier === 'Delete' || clavier === 'Escape') {
+        eff.onclick();
+    }
+    else if (clavier === 'Enter' || clavier === '=') {
+        result.onclick();
+    }
+    else if (screen.textContent.search(/[.]/) == -1) {
+        if (clavier === '.' || clavier === ',') {
+            checkVirg();
+            virgule.onclick();
+        }
+    }
+    else if (clavier === '_') {
+        plusmoins.onclick();
+    }
+    else if (clavier === '%') {
+        pourc.onclick();
+    }
+})
 
 //MAINTENANT, IL NE MANQUE QUE :
 
-// - CONTROLE PAR LE CLAVIER ;
-// - CONTROLE CE QUI SE PASSE SI L'ON APPUIE SUR UNE OPERATION APRES AVOIR APPUYE UNE AUTRE OPERATION; (fais comme ça : check++, console.log, pour voir qui donne comme résultat "NaN" ; on va ensuite le transformer en "ERREUR" ...)
 // - CHANGER LA FONTE.
