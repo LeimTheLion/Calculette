@@ -171,9 +171,14 @@ function virg() {
 
     }
     else if (screen.textContent !== "") {
-        writeVirg = document.createTextNode(".");
-        screen.appendChild(writeVirg);
         checkVirg();
+        if (screen.textContent.search(/[.]/) !== -1) {
+            virgule.disabled = true;
+        }
+        else if (screen.textContent.search(/[.]/) == -1) {
+            writeVirg = document.createTextNode(".");
+            screen.appendChild(writeVirg);
+        }
     }
 }
 const virgule = document.getElementById('virg');
